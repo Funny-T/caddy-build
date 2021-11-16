@@ -41,8 +41,18 @@ jobs:
           curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/cfg/setup/config.deb.txt?distro=debian&version=any-version' | sudo tee -a /etc/apt/sources.list.d/caddy-stable.list
           sudo apt update
           sudo apt install caddy
-          killall caddy
-          rm -f /usr/bin/caddy
-          mv ./caddy_v2.4.6 /usr/bin/caddy
+          sudo killall caddy
+          sudo rm -f /usr/bin/caddy
+          sudo mv ./caddy_v2.4.6 /usr/bin/caddy
           
+          
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        if: github.event_name == 'release'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          asset_name: caddy
+          file: /usr/bin/caddy
+          tag: ${{ github.ref }}
+          overwrite: true
       
