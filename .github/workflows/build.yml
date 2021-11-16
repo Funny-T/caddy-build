@@ -34,13 +34,15 @@ jobs:
           --with github.com/kirsch33/realip \
           --with github.com/porech/caddy-maxmind-geolocation \
           --with github.com/caddyserver/format-encoder \
-          --with github.com/mholt/caddy-webdav
+          --with github.com/mholt/caddy-webdav \
+          --with github.com/caddyserver/forwardproxy@caddy2=github.com/klzgrad/forwardproxy@naive
         
           curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/cfg/gpg/gpg.155B6D79CA56EA34.key' | sudo apt-key add -
           curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/cfg/setup/config.deb.txt?distro=debian&version=any-version' | sudo tee -a /etc/apt/sources.list.d/caddy-stable.list
           sudo apt update
           sudo apt install caddy
-          systemctl stop caddy
+          killall caddy
           rm -f /usr/bin/caddy
-          mv ./caddy_v2.3.0 /usr/bin/caddy
+          mv ./caddy_v2.4.6 /usr/bin/caddy
+          
       
