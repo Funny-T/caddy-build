@@ -1,0 +1,39 @@
+name: build xcaddy
+
+on:
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.1.4
+        with:
+         go-version: 1.16
+         stable: false
+         
+      - name: xcaddy
+        run: |
+          go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+          export version=$(curl -s "https://api.github.com/repos/caddyserver/caddy/releases/latest" | jq -r .tag_name)
+          xcaddy build ${version} --output ./caddy_${version} \
+        --with github.com/abiosoft/caddy-exec \
+        --with github.com/caddy-dns/cloudflare \
+        --with github.com/caddy-dns/dnspod \
+        --with github.com/greenpau/caddy-auth-portal \
+        --with github.com/greenpau/caddy-trace \
+        --with github.com/hairyhenderson/caddy-teapot-module \
+        --with github.com/kirsch33/realip \
+        --with github.com/porech/caddy-maxmind-geolocation \
+        --with github.com/caddyserver/format-encoder \
+        --with github.com/mholt/caddy-webdav
+        
+        list-modules
