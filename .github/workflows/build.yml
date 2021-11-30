@@ -43,7 +43,7 @@ jobs:
           sudo apt install caddy
           sudo killall caddy
           sudo rm -f /usr/bin/caddy
-          sudo mv ./caddy_v2.4.6 /usr/bin/caddy
+          sudo mv ./caddy_${version} /usr/bin/caddy
           
           
       - uses: actions/upload-artifact@v2
