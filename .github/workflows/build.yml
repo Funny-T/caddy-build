@@ -46,7 +46,7 @@ jobs:
           sudo mv ./caddy_${version} /usr/bin/caddy
           
           
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: caddy
           path: /usr/bin/caddy
