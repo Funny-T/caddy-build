@@ -27,7 +27,8 @@ jobs:
           --with github.com/caddy-dns/cloudflare \
           --with github.com/caddy-dns/dnspod \
           --with github.com/hairyhenderson/caddy-teapot-module \
-          --with github.com/caddyserver/forwardproxy@caddy2=github.com/klzgrad/forwardproxy@naive
+          --with github.com/caddyserver/forwardproxy@caddy2=github.com/klzgrad/forwardproxy@naive \
+          --with github.com/ueffel/caddy-brotli
         
 
           sudo apt update
